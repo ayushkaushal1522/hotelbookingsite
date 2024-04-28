@@ -4,21 +4,34 @@ import Room from '../Components/Room';
 import { useParams } from 'react-router-dom';
 import Loading from '../Components/Loading';
 import Error from '../Components/Error';
-
+import moment from 'moment';
 
 const Bookingscreen = () => {
     const [loading,setLoading] = useState(true);
     const [error,setError] = useState();
     const [room,setRoom] =useState();
+    const [totaldays ,setTotaldays] = useState();
+    const [totalamount , setTotalamount] = useState();
     const params = useParams();
+    
+    
+    
     useEffect(() => {
+
+        if(!localStorage.getItem("currentuser")){
+            window.location.reload("/login")
+        }
         try {
             let getroomdetails = async()=>{
                 try{
                     setLoading(true);
                     const data = await axios.post("https://yellow-journalist-zytev.pwskills.app:8080/api/rooms/getroombyid" , {roomid:params.roomid});
-                    
+                    const fromdate = moment(params.fromdate , 'DD-MM-YYYY');
+                    const todate = moment(params.todate , 'DD-MM-YYYY');
+                    const diff = moment.duration(todate.diff(fromdate)).asDays()+1;
+                    setTotaldays(moment.duration(todate.diff(fromdate)).asDays()+1);
                     setRoom(data.data);
+                    setTotalamount(diff*(data.data.rentperday));
                     setLoading(false);
                 }
                 catch(err){
@@ -31,8 +44,27 @@ const Bookingscreen = () => {
         } catch (error) {
             console.log(error);
         }
-    }, [])
-   ;
+    }, []);
+
+    async function bookroom(){
+        const bookingdetails = {
+            room,
+            userid:JSON.parse(localStorage.getItem('currentuser'))._id,
+            fromdate:params.fromdate,
+            todate:params.todate,
+            totalamount,
+            totaldays,
+
+
+        }
+        try {
+            const result = await axios.post( "https://yellow-journalist-zytev.pwskills.app:8080/api/bookings/bookroom", bookingdetails)
+        } catch (error) {
+            
+        }
+    }
+
+   
   return (
    <div>
       {loading ? (<h1><Loading /></h1>): room ? (
@@ -47,9 +79,9 @@ const Bookingscreen = () => {
                     <h1>Booking Details</h1>
                     <hr />
                     <b>
-                        <p>Name:</p>
-                        <p>From Date :</p>
-                        <p>To Date :</p>
+                        <p>Name: {JSON.parse(localStorage.getItem("currentuser")).name}</p>
+                        <p>From Date :{params.fromdate}</p>
+                        <p>To Date : {params.todate}</p>
                         <p>Max Count : {room.maxcount}</p>
                     </b>
                 </div>
@@ -57,9 +89,9 @@ const Bookingscreen = () => {
                     <b>
                         <h1>Amount</h1>
                         <hr />
-                        <p>Total Days:</p>
+                        <p>Total Days: {totaldays}</p>
                         <p>Rent Per Day :{room.rentperday}</p>
-                        <p>Total Amount</p>
+                        <p>Total Amount  : {totalamount}</p>
                     </b>
                     
                 </div>
@@ -67,7 +99,7 @@ const Bookingscreen = () => {
     
 
                 <div style={{float:'right'}}>
-                    <button className='btn btn-primary'>Pay Now</button>
+                    <button className='btn btn-primary' onClick={bookroom}>Pay Now</button>
                 </div>
                 
             </div>

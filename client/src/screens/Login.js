@@ -22,6 +22,7 @@ const Login = () => {
             setLoading(false);
             localStorage.setItem("currentuser",JSON.stringify(result.data));
             navigate("/home");
+            window.location.reload(false);
         } catch (error) {
             console.log(error);
             setLoading(false);

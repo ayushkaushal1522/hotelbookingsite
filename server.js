@@ -6,6 +6,7 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 const roomsRoute = require("./routes/roomsRoute"); 
 const userRoutes = require("./routes/userRoutes"); 
+const bookingRoutes = require("./routes/bookingsRoute")
 require("dotenv").config();
 
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use("/api/rooms" , roomsRoute);
 app.use("/api/users" , userRoutes);
+app.use("/api/bookings" , bookingRoutes)
 
 mongoose.set('strictQuery', true);
 const connecttomongo = async()=>{

@@ -6,6 +6,9 @@ import Homescreen from './screens/Homescreen';
 import Bookingscreen from './screens/Bookingscreen';
 import Register from './screens/Register';
 import Login from './screens/Login';
+import Profilescreen from './screens/Profilescreen';
+import Adminscreens from './screens/Adminscreens';
+import Landingscreen from './screens/Landingscreen';
 
 function App() {
   return (
@@ -14,9 +17,13 @@ function App() {
       <BrowserRouter>
       <Routes>
        <Route path='/home' element={<Homescreen/>} />
-       <Route path='/book/:roomid' element={<Bookingscreen/>} />
+       <Route path='/book/:roomid/:fromdate/:todate' element={<Bookingscreen/>} />
        <Route path='/register' element={<Register/>} />
        <Route path='/login' element={<Login/>} />
+       <Route path='/profile' element={<Profilescreen />} />
+       <Route path='/admin' element={<Adminscreens />} />
+       <Route path='/' element={<Landingscreen />} />
+      
       </Routes>
        
       </BrowserRouter>
@@ -25,3 +32,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
