@@ -107,13 +107,17 @@ export function MyBookings() {
 
 export function MyProfile() {
     const user = JSON.parse(localStorage.getItem("currentuser"))
+    console.log(user)
     return (
-      <div>
-          <h1>My Profile</h1>
+      <div className="col-md-6">
           <br />
-          <h3>Name : {user.name}</h3>
-          <h3>Email : {user.email}</h3>
-          <h3>isAdmin : {user.isAdmin ? "YES" : "NO"}</h3>
+          <h1><b>My Profile</b></h1>
+          <br />
+          <div className='bs'>
+            <h3>Name : {user.name}</h3>
+            <h3>Email : {user.email}</h3>
+            <h3>isAdmin : {user.isadmin ? "YES" : "NO"}</h3>
+          </div>
       </div>
     )
   }

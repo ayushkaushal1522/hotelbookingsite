@@ -17,7 +17,7 @@ const Login = () => {
         }
         try {
             setLoading(true)
-            const result = await  axios.post("https://yellow-journalist-zytev.pwskills.app:8080/api/users/login",user);
+            const result = await axios.post("https://yellow-journalist-zytev.pwskills.app:8080/api/users/login",user);
             console.log(result.data);
             setLoading(false);
             localStorage.setItem("currentuser",JSON.stringify(result.data));
