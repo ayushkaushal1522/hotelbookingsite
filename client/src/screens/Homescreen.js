@@ -6,6 +6,7 @@ import Error from '../Components/Error';
 import { DatePicker, Space } from 'antd';
 import 'antd/dist/antd'
 import moment from 'moment'
+import Footer from "../Components/Footer"
 const { RangePicker } = DatePicker;
 
 const Homescreen = () => {
@@ -85,6 +86,7 @@ const Homescreen = () => {
     }
     
   return (
+    <div>
     <div className='container'>
 
         <div className='row mt-5 bs'> 
@@ -116,7 +118,11 @@ const Homescreen = () => {
                 })
             )}
         </div>
+        
     </div>
+    <Footer/>
+    </div>
+
   )
 }
 

@@ -51,9 +51,9 @@ const Register = () => {
                         value={name} onChange={(e)=>{setName(e.target.value)}}/>
                         <input type="text" className='from-control' placeholder='Email'
                         value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
-                        <input type="text" className='from-control' placeholder='Password'
+                        <input type="password" className='from-control' placeholder='Password'
                         value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-                        <input type="text" className='from-control' placeholder='Confirm Password'
+                        <input type="password" className='from-control' placeholder='Confirm Password'
                         value={cpassword} onChange={(e)=>{setCpassword(e.target.value)}}/>
                         <button className='btn btn-primary mt-3' onClick={registerhandler}>Register</button>
                     </div>

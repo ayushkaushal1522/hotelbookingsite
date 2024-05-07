@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import Loading from '../Components/Loading';
 import Error from '../Components/Error';
 import moment from 'moment';
+import Swal from "sweetalert2"
+
 
 const Bookingscreen = () => {
     const [loading,setLoading] = useState(true);
@@ -59,6 +61,9 @@ const Bookingscreen = () => {
         }
         try {
             const result = await axios.post( "https://yellow-journalist-zytev.pwskills.app:8080/api/bookings/bookroom", bookingdetails)
+            Swal.fire("Congrats","Your Room has been Boooked Successfully","success").then(result=>{
+                window.location.reload()
+            })
         } catch (error) {
             
         }
@@ -99,7 +104,7 @@ const Bookingscreen = () => {
     
 
                 <div style={{float:'right'}}>
-                    <button className='btn btn-primary' onClick={bookroom}>Pay Now</button>
+                    <button className='btn btn-primary' onClick={bookroom}>Book Now</button>
                 </div>
                 
             </div>
